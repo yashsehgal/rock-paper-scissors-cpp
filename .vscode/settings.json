@@ -3,5 +3,6 @@
     "activityBar.background": "#000000",
     "titleBar.activeBackground": "#ffffff",
     "titleBar.activeForeground": "#000000"
-  }
+  },
+  "C_Cpp.errorSquiggles": "Disabled"
 }
