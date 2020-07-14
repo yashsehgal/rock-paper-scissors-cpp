@@ -30,12 +30,13 @@
 #include <fstream>
 // #include <datetimeapi.h>
 #include <ctime>
+#include <random>
 
 class GameLogic {
   private:
   char computer_turn_options[10][3];
   public:
-  GameLogic() {
+  GameLogic(bool activation = false) {
     computer_turn_options[10][3] = {"rock", "paper", "scissors"};
   }
   // this function will return the user and computer score at every iteration of the gameplay.
@@ -112,6 +113,26 @@ class GameLogic {
     // closing the datafile
     fileObject.close();
   }
+  void saveGameplayDetails(char * username, int user_score, int computer_score) {
+    char * computer_name = "computer";
+    std::to_string(user_score);
+    std::to_string(computer_score);
+    std::transform(user_score.begin(), user_score.end(), user_score.begin(), ::tolower);
+    std::transform(computer_score.begin(), computer_score.end(), computer_score.begin(), ::tolower);
+    // opening file in a fstream object
+    std::fstream gameplayDetailsFile;
+    gameplayDetailsFile.open("game_history_details.txt", ios::in | ios::app);
+    // checking if the file is open or not
+    if (!gameplayDetailsFile) std::cout << "datafile is unable to open..." << std::endl;
+    else {
+      getGameHistoryDetails();
+      // char * writingText = computer_name;
+      gameplayDetailsFile.write((char *)&computer_name, sizeof(computer_name));
+      gameplayDetailsFile.write((std::string)&computer_score, sizeof(computer_score));
+      gameplayDetailsFile.write((std::string)&username, sizeof(username));
+      gameplayDetailsFile.write((std::string)&user_score, sizeof(user_score));
+    }
+  }
   // this function will show the data
   void getGameHistoryDetails(void) {
     std::fstream fileObject;
@@ -120,12 +141,21 @@ class GameLogic {
     if (!fileObject) std::cout << "datafile is unable to open..." << std::endl;
     else {
       // showing the complete data from the text datafile
-      char *fetchString = std::getline(fileObject);
+      char * fetchString = std::getline(fileObject);
       std::cout << fetchString << std::endl;
       // closing the datafile after being used
       fileObject.close();
     }
   }
+  std::string generateComputerTurn(void) {
+    std::random_device randomDeviceNumber;
+    std::mt19937 gen(randomDeviceNumber());
+    std::uniform_int_distribution<> distr(0, 2);
+    int randomValueIndex = distr(gen);
+    std::string randomComputerTurn = * computer_turn_options[randomValueIndex];
+    return (std::string)randomComputerTurn;
+  }
+
   protected:
 };
 

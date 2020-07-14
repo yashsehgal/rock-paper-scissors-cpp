@@ -21,6 +21,8 @@
 
 #include <iostream>
 #include <string>
+#include <conio.h>
+#include <stdio.h>
 #include <algorithm>
 #include <game_logic.h>
 
@@ -34,9 +36,17 @@
     std::string player_last_name;
     std::string player_username;
     int gameNumber;
+    std::string userTurn;
+    int userScore;
+    int computerScore;
+    int numberOfDraws;
    public:
    GamingInterface() {
+    numberOfDraws = 0;
+    userScore = 0;
+    computerScore = 0;
     gameNumber = 0;
+    userTurn = "";
    }
    void homeInterface(void) {
     char * input_command = "";
@@ -58,7 +68,25 @@
    }
    void gameInterface(void) {
       system("cls");
-      
+      std::cout << "welcome to rock-paper-scissor game" << std::endl;
+      time.sleep(1000);
+      system("cls");
+
+      // getting the computer's random turn
+      GameLogic gameLogicObject(activation = true);
+      std::string computerTurn = gameLogicObject.generateComputerTurn();
+      std::cout << "type in your option (rock/paper/scissor)> " << std::endl;
+      std::cin >> userTurn;
+
+      if (gameLogicObject.checkStatusEvent(userTurn, computerTurn) == 1) {
+        ++userScore;
+      }
+      else if (gameLogicObject.checkStatusEvent(userTurn, computerTurn) == 0) {
+        ++computerScore;
+      }
+      else if (gameLogicObject.checkStatusEvent(userTurn, computerTurn) == -1) {
+        ++numberOfDraws;
+      }
    }
    void historyInterface(void);
    void exitHandler(void);
