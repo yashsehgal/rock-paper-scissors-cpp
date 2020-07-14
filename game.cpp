@@ -51,6 +51,7 @@
    void homeInterface(void) {
     char * input_command = "";
     while(input_command != "exit") {
+      system("cls");
       std::cout << "1. Start Game" << std::endl;
       std::cout << "2. Watch Gaming History" << std::endl;
       std::cout << "3. Type 'exit' to exit the game" << std::endl;
@@ -67,28 +68,51 @@
     }
    }
    void gameInterface(void) {
+      std::string commandChoice = "";
       system("cls");
       std::cout << "welcome to rock-paper-scissor game" << std::endl;
       time.sleep(1000);
-      system("cls");
+      // system("cls");
 
       // getting the computer's random turn
       GameLogic gameLogicObject(activation = true);
-      std::string computerTurn = gameLogicObject.generateComputerTurn();
-      std::cout << "type in your option (rock/paper/scissor)> " << std::endl;
-      std::cin >> userTurn;
+      while (commandChoice != "n") {
+        std::string computerTurn = gameLogicObject.generateComputerTurn();
+        std::cout << "type in your option (rock/paper/scissor)> " << std::endl;
+        std::cin >> userTurn;
 
-      if (gameLogicObject.checkStatusEvent(userTurn, computerTurn) == 1) {
-        ++userScore;
+        if (gameLogicObject.checkStatusEvent(userTurn, computerTurn) == 1) {
+          std::cout << player_username << " won this game!" << std::endl;
+          ++userScore;
+        }
+        else if (gameLogicObject.checkStatusEvent(userTurn, computerTurn) == 0) {
+          std::cout << "Computer won this game!" << std::endl;
+          ++computerScore;
+        }
+        else if (gameLogicObject.checkStatusEvent(userTurn, computerTurn) == -1) {
+          std::cout << "Well! This is a Tie" << std::endl;
+          ++numberOfDraws;
+        }
+        std::cout << "Do you want to play more?[y/n]> ";
+        std::cin >> commandChoice;      
       }
-      else if (gameLogicObject.checkStatusEvent(userTurn, computerTurn) == 0) {
-        ++computerScore;
-      }
-      else if (gameLogicObject.checkStatusEvent(userTurn, computerTurn) == -1) {
-        ++numberOfDraws;
-      }
+      system("cls");
+      std::cout << "Thanks for playing the game..." << std::endl;
+      time.sleep(1000);
+      system("cls");
    }
-   void historyInterface(void);
+   void historyInterface(void) {
+     system("cls");
+     std::cout << "opening gaming history..." << std::endl;
+     time.sleep(2000);
+     system("cls");
+
+     // show the gaming history datafile
+     GameLogic gameLogicObject(activation = true);
+     gameLogicObject.getGameHistoryDetails();
+
+     system("pause");
+   }
    void exitHandler(void);
    protected:
  };
