@@ -113,6 +113,19 @@
 
      system("pause");
    }
-   void exitHandler(void);
+   void exitHandler(void) {
+     std::string exitingChoice = "";
+     label : std::cout << "Do you really want to exit the game?[y, n]> ";
+     std::cin >> exitingChoice;
+     if (exitingChoice == "y" || exitingChoice == "Y") {
+       std::cout << "Thanks for playing..." << std::endl;
+       exit(0);
+     } else if (exitingChoice == "n" || exitingChoice == "N") {
+       std::cout << std::endl;
+     } else {
+       std::cout << "Please select a valid option..." << std::endl;
+       goto label;
+     }
+   }
    protected:
  };
