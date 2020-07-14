@@ -27,6 +27,9 @@
 // importing some useful modules for the code.
 #include <iostream>
 #include <string>
+#include <fstream>
+// #include <datetimeapi.h>
+#include <ctime>
 
 class GameLogic {
   private:
@@ -87,6 +90,40 @@ class GameLogic {
       else if (user_turn == "scissor" && computer_turn == "paper") return 1;
       else if (user_turn == "scissor" && computer_turn == "scissor") return -1;
       else return ;
+    }
+  }
+  // this function will  save the gaming history in a text file,
+  // in the format of:
+  /**
+   *  Date(DD|MM|YYYY) - Time(IST+19 format)
+   * User wins, Computer Wins, Number of Draws 
+   */
+  void saveGameData(void) {
+    std::fstream fileObject;
+    fileObject.open("game-history.txt", ios::in | ios::app);
+    // fetching the current date and time
+    std::time_t current_time =  std::time(0);
+    // converting the time values into string
+    char* bufferStringDateTime = std::ctime(&current_time);
+    // checking if the file is open or not
+    if (!fileObject) std::cout << "datafile is unable to open..." << std::endl;
+    // else writing data in the datafile
+    else fileObject.write((char *)&bufferStringDateTime, sizeof(bufferStringDateTime));
+    // closing the datafile
+    fileObject.close();
+  }
+  // this function will show the data
+  void getGameHistoryDetails(void) {
+    std::fstream fileObject;
+    fileObject.open("game-history.txt", ios::out);
+    // checking if the file is open or not
+    if (!fileObject) std::cout << "datafile is unable to open..." << std::endl;
+    else {
+      // showing the complete data from the text datafile
+      char *fetchString = std::getline(fileObject);
+      std::cout << fetchString << std::endl;
+      // closing the datafile after being used
+      fileObject.close();
     }
   }
   protected:
