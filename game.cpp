@@ -21,4 +21,46 @@
 
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include <game_logic.h>
+
+/** this file fetches data and logical outputs from game-logic.h module which has 
+  * a set of functional methods.
+  * */
+
+ class GamingInterface {
+   private:
+    std::string player_first_name;
+    std::string player_last_name;
+    std::string player_username;
+    int gameNumber;
+   public:
+   GamingInterface() {
+    gameNumber = 0;
+   }
+   void homeInterface(void) {
+    char * input_command = "";
+    while(input_command != "exit") {
+      std::cout << "1. Start Game" << std::endl;
+      std::cout << "2. Watch Gaming History" << std::endl;
+      std::cout << "3. Type 'exit' to exit the game" << std::endl;
+
+      // taking inputcommand 
+      std::cin >> input_command;
+      // lowering case the string
+      std::transform(input_command.begin(), input_command.end(), input_command.begin(), ::tolower);
+
+      if (input_command == "game") gameInterface();
+      else if (input_command == "history") historyInterface();
+      else if (input_command == "exit") exitHandler();
+      else std::cout << "Please select a valid option..." << std::endl;
+    }
+   }
+   void gameInterface(void) {
+      system("cls");
+      
+   }
+   void historyInterface(void);
+   void exitHandler(void);
+   protected:
+ };
