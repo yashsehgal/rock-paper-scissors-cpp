@@ -22,9 +22,9 @@
 #include <iostream>
 #include <string>
 #include <conio.h>
-#include <stdio.h>
+//#include <stdio.h>
 #include <algorithm>
-#include <game_logic.h>
+#include "game_logic.h"
 
 /** this file fetches data and logical outputs from game-logic.h module which has 
   * a set of functional methods.
@@ -65,7 +65,8 @@
      time.sleep(2000);
    }
    void homeInterface(void) {
-
+    // getting user details
+    getUserDetails();
     char * input_command = "";
     while(input_command != "exit") {
       system("cls");
@@ -73,7 +74,7 @@
       std::cout << "2. Watch Gaming History" << std::endl;
       std::cout << "3. Type 'exit' to exit the game" << std::endl;
 
-      // taking inputcommand 
+      // taking input command
       std::cin >> input_command;
       // lowering case the string
       std::transform(input_command.begin(), input_command.end(), input_command.begin(), ::tolower);
@@ -145,3 +146,9 @@
    }
    protected:
  };
+
+ int main() {
+     GamingInterface gamingInterface;
+     gamingInterface.gameInterface();
+     return 0;
+ }

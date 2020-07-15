@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/yashs/Desktop/rock-paper-scissors-cpp-version/game.cpp
+iostream
+-
+string
+-
+conio.h
+-
+algorithm
+-
+game_logic.h
+C:/Users/yashs/Desktop/rock-paper-scissors-cpp-version/game_logic.h
+
+C:/Users/yashs/Desktop/rock-paper-scissors-cpp-version/game_logic.h
+iostream
+-
+string
+-
+fstream
+-
+ctime
+-
+random
+-
+
