@@ -57,7 +57,7 @@ class GameLogic {
   /***
    * Check Status Event function has a logical game metrics which will compare the
    * user turns and option-selections and returns the respective values according to the
-   * game logical events. The function will just return the score increament and decreament
+   * game logical events. The function will just return the score increment and decrement
    * values after comparing the user's moves.
   */
   int checkStatusEvent(char * user_turn, char * computer_turn) {
@@ -155,7 +155,21 @@ class GameLogic {
     std::string randomComputerTurn = * computer_turn_options[randomValueIndex];
     return (std::string)randomComputerTurn;
   }
+  /**
+   * This function is to save the user details throughout the gaming experience
+   * */
 
+  void saveUserDetails(std::string userFirstName, std::string userLastName, std::string username) {
+    std::fstream userDetailsFileObject; 
+    userDetailsFileObject.open("user_details.txt", ios::in | ios::app);
+    // checking if the datafile is open or not
+    if (!userDetailsFileObject) std::cout << "datafile is unable to open..." << std::endl;
+    else {
+      userDetailsFileObject.write((std::string)&userFirstName, sizeof(userFirstName));
+      userDetailsFileObject.write((std::string)&userLastName, sizeof(userLastName));
+      userDetailsFileObject.write((std::string)*username, sizeof(username));
+    }
+  }
   protected:
 };
 

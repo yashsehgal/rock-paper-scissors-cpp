@@ -48,7 +48,24 @@
     gameNumber = 0;
     userTurn = "";
    }
+   void getUserDetails(void) {
+     system("cls");
+     std::cout << "starting game..." << std::endl;
+     time.sleep(1000);
+
+     std::cout << "Enter your First Name> "; std::cin >> player_first_name;
+     std::cout << "Enter your Last Name> "; std::cin >> player_last_name;
+     std::cout << "Create a username> "; std::cin >> player_username; 
+     std::cout << std::endl;
+
+     // saving the user details
+     GameLogic gameLogicObject(activation = true);
+     gameLogicObject.saveUserDetails(player_first_name, player_last_name, player_username);
+     std::cout << "Saving Details..." << std::endl;
+     time.sleep(2000);
+   }
    void homeInterface(void) {
+
     char * input_command = "";
     while(input_command != "exit") {
       system("cls");
@@ -115,7 +132,7 @@
    }
    void exitHandler(void) {
      std::string exitingChoice = "";
-     label : std::cout << "Do you really want to exit the game?[y, n]> ";
+     label : std::cout << "Do you really want to exit the game?[y/n]> ";
      std::cin >> exitingChoice;
      if (exitingChoice == "y" || exitingChoice == "Y") {
        std::cout << "Thanks for playing..." << std::endl;
