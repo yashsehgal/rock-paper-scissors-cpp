@@ -127,7 +127,6 @@
      // show the gaming history datafile
      GameLogic gameLogicObject(activation = true);
      gameLogicObject.getGameHistoryDetails();
-
      system("pause");
    }
    void exitHandler(void) {
