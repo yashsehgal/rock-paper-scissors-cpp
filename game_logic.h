@@ -42,7 +42,7 @@ class GameLogic {
     computer_turn_options[3] = {"rock", "paper", "scissors"};
   }
   // this function will return the user and computer score at every iteration of the gameplay.
-  static std::string getWinnerName(int user_score, int computer_score) {
+  static std::string getWinnerName(const int user_score, const int computer_score) {
     if (user_score > computer_score) {
       std::string statement = "user"; 
       return statement;
@@ -121,15 +121,15 @@ class GameLogic {
   }
   static void saveGameplayDetails(char * username, const int user_score, const int computer_score) {
     char computer_name[] = "computer";
-//    std::to_string(user_score);
-//    std::to_string(computer_score);
+      // std::to_string(user_score);
+      // std::to_string(computer_score);
       // initialising the streambufferStream
       ostringstream computerScoreBufferString, userScoreBufferString;
       computerScoreBufferString << computer_score;
       userScoreBufferString << user_score;
 
-//    std::transform(user_score.begin(), user_score.end(), user_score.begin(), ::tolower);
-//    std::transform(computer_score.begin(), computer_score.end(), computer_score.begin(), ::tolower);
+      // std::transform(user_score.begin(), user_score.end(), user_score.begin(), ::tolower);
+      // std::transform(computer_score.begin(), computer_score.end(), computer_score.begin(), ::tolower);
     // opening file in a fstream object
     std::fstream gameplayDetailsFile;
     gameplayDetailsFile.open("game_history_details.txt", ios::app);
@@ -157,7 +157,7 @@ class GameLogic {
           fileObject.get(fetchString);
           fileObject.write((char *)&fetchString, sizeof(fetchString));
           // closing the datafile after being used
-//          fileObject.close();
+          // fileObject.close();
       }
       fileObject.close();
     }

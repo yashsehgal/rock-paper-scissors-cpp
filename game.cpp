@@ -32,16 +32,16 @@
 
  class GamingInterface {
    private:
-    std::string player_first_name;
-    std::string player_last_name;
-    std::string player_username;
+    char * player_first_name;
+    char * player_last_name;
+    char * player_username;
     int gameNumber;
-    std::string userTurn;
+    char * userTurn;
     int userScore;
     int computerScore;
     int numberOfDraws;
    public:
-   GamingInterface() {
+   explicit GamingInterface() {
     numberOfDraws = 0;
     userScore = 0;
     computerScore = 0;
