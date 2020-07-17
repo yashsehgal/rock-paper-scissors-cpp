@@ -36,7 +36,7 @@
 using namespace std;
 class GameLogic {
   private:
-  static const char * computer_turn_options[3]{};
+  static const char * computer_turn_options[3];
   public:
   explicit GameLogic(bool activation = false) {
     computer_turn_options[0] = "rock";
@@ -45,8 +45,8 @@ class GameLogic {
   }
   // this function will return the user and computer score at every iteration of the gameplay.
   static char * getWinnerName(const int user_score, const int computer_score) {
-    char * statement;
-    if (user_score > computer_score) statement = "user"; 
+    char *statement = nullptr;
+    if (user_score > computer_score) statement = "user";
     else if (user_score < computer_score) statement = "computer"; 
     else if (user_score == computer_score) statement = "draw";
     else std::cout << "invalid condition... system internal error alert!" << std::endl;
@@ -168,7 +168,7 @@ class GameLogic {
     int randomValueIndex = distr(gen);
     // std::string randomComputerTurn = * computer_turn_options[randomValueIndex];
     char * randomComputerTurn;
-    std::strcpy(computer_turn_options[randomValueIndex], randomComputerTurn)
+    std::strcpy(const_cast<char *>(computer_turn_options[randomValueIndex]), randomComputerTurn);
     return (char *)randomComputerTurn;
   }
   /**
