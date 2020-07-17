@@ -32,14 +32,14 @@
 
  class GamingInterface {
    private:
-    char * player_first_name;
-    char * player_last_name;
-    char * player_username;
-    int gameNumber;
-    char * userTurn;
-    int userScore;
-    int computerScore;
-    int numberOfDraws;
+    static char * player_first_name;
+    static char * player_last_name;
+    static char * player_username;
+    static int gameNumber;
+    static char * userTurn;
+    static int userScore;
+    static int computerScore;
+    static int numberOfDraws;
    public:
    explicit GamingInterface() {
     numberOfDraws = 0;
@@ -48,7 +48,7 @@
     gameNumber = 0;
     userTurn = "";
    }
-   void getUserDetails(void) {
+   static void getUserDetails(void) {
      system("cls");
      std::cout << "starting game..." << std::endl;
      time.sleep(1000);
@@ -59,12 +59,12 @@
      std::cout << std::endl;
 
      // saving the user details
-     GameLogic gameLogicObject(activation = true);
-     gameLogicObject.saveUserDetails(player_first_name, player_last_name, player_username);
+     GameLogic gameLogicObject(true);
+     GameLogic::saveUserDetails(player_first_name, player_last_name, player_username);
      std::cout << "Saving Details..." << std::endl;
      time.sleep(2000);
    }
-   void homeInterface(void) {
+   static void homeInterface() {
     // getting user details
     getUserDetails();
     char * input_command = "";
@@ -77,7 +77,7 @@
       // taking input command
       std::cin >> input_command;
       // lowering case the string
-      std::transform(input_command.begin(), input_command.end(), input_command.begin(), ::tolower);
+//      std::transform(input_command.begin(), input_command.end(), input_command.begin(), ::tolower);
 
       if (input_command == "game") gameInterface();
       else if (input_command == "history") historyInterface();
@@ -85,7 +85,7 @@
       else std::cout << "Please select a valid option..." << std::endl;
     }
    }
-   void gameInterface(void) {
+   static void gameInterface(void) {
       std::string commandChoice = "";
       system("cls");
       std::cout << "welcome to rock-paper-scissor game" << std::endl;
@@ -93,9 +93,9 @@
       // system("cls");
 
       // getting the computer's random turn
-      GameLogic gameLogicObject(activation = true);
+      GameLogic gameLogicObject(true);
       while (commandChoice != "n") {
-        std::string computerTurn = gameLogicObject.generateComputerTurn();
+        std::string computerTurn = GameLogic::generateComputerTurn();
         std::cout << "type in your option (rock/paper/scissor)> " << std::endl;
         std::cin >> userTurn;
 
@@ -119,7 +119,7 @@
       time.sleep(1000);
       system("cls");
    }
-   void historyInterface(void) {
+   static void historyInterface(void) {
      system("cls");
      std::cout << "opening gaming history..." << std::endl;
      time.sleep(2000);
@@ -130,7 +130,7 @@
      gameLogicObject.getGameHistoryDetails();
      system("pause");
    }
-   void exitHandler(void) {
+   static void exitHandler(void) {
      std::string exitingChoice = "";
      label : std::cout << "Do you really want to exit the game?[y/n]> ";
      std::cin >> exitingChoice;

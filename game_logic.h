@@ -36,10 +36,10 @@
 using namespace std;
 class GameLogic {
   private:
-  static char * computer_turn_options[3]{};
+  char * computer_turn_options[3]{};
   public:
   explicit GameLogic(bool activation = false) {
-    computer_turn_options[3] = {"rock", "paper", "scissors"};
+    computer_turn_options[3] {"rock", "paper", "scissors"};
   }
   // this function will return the user and computer score at every iteration of the gameplay.
   static std::string getWinnerName(const int user_score, const int computer_score) {
