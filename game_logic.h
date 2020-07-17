@@ -36,23 +36,21 @@
 using namespace std;
 class GameLogic {
   private:
-  char * computer_turn_options[3]{};
+  static const char * computer_turn_options[3]{};
   public:
   explicit GameLogic(bool activation = false) {
-    computer_turn_options[3] {"rock", "paper", "scissors"};
+    computer_turn_options[0] = "rock";
+    computer_turn_options[1] = "paper";
+    computer_turn_options[2] = "scissors";
   }
   // this function will return the user and computer score at every iteration of the gameplay.
-  static std::string getWinnerName(const int user_score, const int computer_score) {
-    if (user_score > computer_score) {
-      std::string statement = "user"; 
-      return statement;
-    } else if (user_score < computer_score) {
-        std::string statement = "computer"; 
-        return statement;
-    } else if (user_score == computer_score) {
-      std::string statement = "draw";
-      return statement;
-    }
+  static char * getWinnerName(const int user_score, const int computer_score) {
+    char * statement;
+    if (user_score > computer_score) statement = "user"; 
+    else if (user_score < computer_score) statement = "computer"; 
+    else if (user_score == computer_score) statement = "draw";
+    else std::cout << "invalid condition... system internal error alert!" << std::endl;
+    return statement;
   }
   /***
    * Check Status Event function has a logical game metrics which will compare the
@@ -111,7 +109,8 @@ class GameLogic {
     // fetching the current date and time
     std::time_t current_time =  std::time(0);
     // converting the time values into string
-    char* bufferStringDateTime = std::ctime(&current_time);
+      char *bufferStringDateTime;
+      bufferStringDateTime = std::ctime(&current_time);
     // checking if the file is open or not
     if (!fileObject) std::cout << "datafile is unable to open..." << std::endl;
     // else writing data in the datafile
@@ -162,13 +161,15 @@ class GameLogic {
       fileObject.close();
     }
   }
-  static std::string generateComputerTurn() {
+  static char * generateComputerTurn() {
     std::random_device randomDeviceNumber;
     std::mt19937 gen(randomDeviceNumber());
     std::uniform_int_distribution<> distr(0, 2);
     int randomValueIndex = distr(gen);
-    std::string randomComputerTurn = * computer_turn_options[randomValueIndex];
-    return (std::string)randomComputerTurn;
+    // std::string randomComputerTurn = * computer_turn_options[randomValueIndex];
+    char * randomComputerTurn;
+    std::strcpy(computer_turn_options[randomValueIndex], randomComputerTurn)
+    return (char *)randomComputerTurn;
   }
   /**
    * This function is to save the user details throughout the gaming experience
