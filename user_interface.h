@@ -23,13 +23,30 @@
 #ifndef _USER_INTERFACE__
 #define _USER_INTERFACE__
 
+#include <fstream>
+#include <string>
 class UserInterface {
   private:
   public:
   static void changeUsername(const char * NewUsernameString) {
-    std::fstream UserDetailsDatafile.open("user_details.txt", ios::app | ios::in | ios::bin);
-    // continue from the username renaming feature task.
-    // currently the code module is under review and support development.
+    int BufferStringLength = std::strlen(NewUsernameString);
+    std::fstream UserDetailsDatafile.open("user_details.txt", ios::in | ios::bin | ios::app);
+    if (std::is_open(UserDetailsDatafile) == false) std::cout << "file is unable to open" << std::endl;
+    else {
+      while (UserDetailsDatafile.eof()) {
+        while (UserDetailsDatafile.eol()) {
+          for (unsigned int count = 0; count < BufferStringLength; count++) {
+            UserDetailsDatafile.seekp(0, ios::beg);
+            UserDetailsDatafile.seekg(NewUsernameString, 
+                UserDetailsDatafile.tellg(&NewUsernameString, sizeof(NewUsernameString)));
+            int StringLocationInFile = UserDetailsDatafile.tellp();
+            static char *   replacingString = std::getchar(NewUsernameString);
+            std::strcpy(NewUsernameString, replacingString);
+          }
+        }
+      }
+    }
+    
   }
   protected:
 };
